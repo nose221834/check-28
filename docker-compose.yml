@@ -5,7 +5,7 @@ services:
     container_name: "check28-view"
     volumes:
       - ./view:/app
-    command: sh -c "npm run dev"
+    command: sh -c "npm install && npm run dev"
     ports:
       - "3000:3000"
     stdin_open: true
@@ -14,9 +14,9 @@ services:
       NEXT_PUBLIC_MONGODB_URI: mongodb://root:password@mongo:27017/test?authSource=admin
       NEXT_PUBLIC_MONGODB_DB: check28
     depends_on:
-      - mongo
+      - mongo-db
 
-  mongo:
+  mongo-db:
     image: mongo
     restart: always
     environment:
@@ -33,10 +33,10 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_SERVER: mongo-db
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
       ME_CONFIG_MONGODB_PORT: 27017
     depends_on:
-      - mongo
+      - mongo-db
 
