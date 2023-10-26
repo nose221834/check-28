@@ -1,13 +1,14 @@
 'use client'
 
-const Form: React.FC<{weekDay: string; dayJa: string}> = ({
-    weekDay,
+const Form: React.FC<{ dayEn: string; dayJa: string; onchange: (event: React.ChangeEvent<HTMLInputElement>) => void}> = ({
+    dayEn,
     dayJa,
+    onchange
   }) => {
     return (
       <div>
-        <label htmlFor={weekDay}>{dayJa}曜日: </label>
-        <input type='time' name='workHour' id={weekDay} />
+        <label htmlFor={dayEn}>{dayJa}曜日: </label>
+        <input type='time' name='workHour' id={dayEn} onChange={onchange}/>
       </div>
     )
   }

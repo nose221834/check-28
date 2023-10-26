@@ -1,22 +1,22 @@
 export const weeks: { id: string; ja: string }[] = [
     {
-      id: "Mon",
+      id: "mon",
       ja: "月"
     },
     {
-      id: "Tue",
+      id: "tue",
       ja: "火"
     },
     {
-      id: "Wed",
+      id: "wed",
       ja: "水"
     },
     {
-      id: "Thu",
+      id: "thu",
       ja: "木"
     },
     {
-      id: "Fri",
+      id: "fri",
       ja: "金"
     }
   ];
