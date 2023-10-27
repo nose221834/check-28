@@ -1,31 +1,51 @@
 "use client";
 
 import React, { useState } from "react";
-import Form from "./components/form";
-import weeks from "./weeks";
+import Forms from "./components/forms";
 
 export default function Home() {
-  const [dayTimes, setDayTimes] = useState([0, 0, 0, 0, 0]);
-
-  const [sumTime, setSumTime] = useState(0);
+  const [sumTime, setSumTime] = useState("00:00");
+  const [dayTimes, setDayTimes] = useState([
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+    "00:00",
+  ]);
 
   const handleDayTime = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    let nextDayTimes: number[] = dayTimes.map((dayTime, i) => {
-      if (i === index) {
-        return e.target.valueAsNumber;
-      } else {
-        return dayTime;
-      }
-    });
-    console.log(nextDayTimes);
-    setDayTimes(nextDayTimes);
+    const inputValue = e.target.value;
+    const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+    if (timeRegex.test(inputValue)) {
+      let nextDayTimes: string[] = dayTimes.map((dayTime, i) => {
+        if (i === index) {
+          return inputValue;
+        } else {
+          return dayTime;
+        }
+      });
+      setDayTimes(nextDayTimes);
+    }
   };
 
   const handleSumTime = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(e.currentTarget);
+    e.preventDefault();
+
+    const totalMinutes = dayTimes.reduce((total, dayTime) => {
+      const [hours, minutes] = dayTime.split(":");
+      return total + Number(hours) * 60 + Number(minutes);
+    }, 0);
+
+    const totalHours = Math.floor(totalMinutes / 60);
+    const remainderMinutes = totalMinutes % 60;
+    const totalTime = `${totalHours}:
+      ${remainderMinutes.toString().padStart(2, "0")}`;
+
+    setSumTime(totalTime);
   };
 
   return (
@@ -37,22 +57,12 @@ export default function Home() {
         action=""
         method="get"
         className="input-time"
-        onSubmit={handleSumTime}
+        onSubmit={(e) => handleSumTime(e)}
       >
-        {dayTimes.map((dayTime, i) => (
-          <React.Fragment key={i}>
-            <Form
-              dayEn={weeks[i].en}
-              dayJa={weeks[i].ja}
-              time={dayTime}
-              onChange={(e) => handleDayTime(e, i)}
-              key={weeks[i].en}
-            />
-            <div key={weeks[i].ja}>勤務時間:{dayTimes[i]}</div>
-          </React.Fragment>
-        ))}
-        <div>合計時間:{sumTime}</div>
+        <Forms dayTimes={dayTimes} onChange={handleDayTime} />
+
         <button type="submit">Submit form</button>
+        <h2>合計時間:{sumTime}</h2>
       </form>
     </>
   );
