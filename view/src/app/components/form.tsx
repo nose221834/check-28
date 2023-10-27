@@ -1,16 +1,23 @@
-'use client'
+"use client";
 
-const Form: React.FC<{ dayEn: string; dayJa: string; onchange: (event: React.ChangeEvent<HTMLInputElement>) => void}> = ({
-    dayEn,
-    dayJa,
-    onchange
-  }) => {
-    return (
-      <div>
-        <label htmlFor={dayEn}>{dayJa}曜日: </label>
-        <input type='time' name='workHour' id={dayEn} onChange={onchange}/>
-      </div>
-    )
-  }
+const Form: React.FC<{
+  dayEn: string;
+  dayJa: string;
+  time: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}> = ({ dayEn, dayJa, time, onChange }) => {
+  return (
+    <div>
+      <label htmlFor={dayEn}>{dayJa}曜日: </label>
+      <input
+        type="time"
+        name={dayJa}
+        defaultValue={time}
+        id={dayEn}
+        onChange={onChange}
+      />
+    </div>
+  );
+};
 
-export default Form
+export default Form;
