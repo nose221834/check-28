@@ -3,7 +3,7 @@
 const Form: React.FC<{
   dayEn: string;
   dayJa: string;
-  time: string;
+  time: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }> = ({ dayEn, dayJa, time, onChange }) => {
   return (
