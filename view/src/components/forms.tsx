@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import weeks from "../weeks";
+import weeks from "../app/weeks";
 
 const Form: React.FC<{
   dayEn: string;
@@ -24,23 +24,29 @@ const Form: React.FC<{
 };
 
 const Forms: React.FC<{
-  dayTimes: string[];
+  inputTimes: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>, i: number) => void;
-}> = ({ dayTimes, onChange }) => {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}> = ({ inputTimes, onChange , onSubmit }) => {
   return (
-    <>
-      {dayTimes.map((dayTime, i) => (
+    <form
+        action=""
+        method="get"
+        className="input-time"
+        onSubmit={(e) => onSubmit(e)}>
+      {inputTimes.map((inputTime, i) => (
         <React.Fragment key={i}>
           <Form
             dayEn={weeks[i].en}
             dayJa={weeks[i].ja}
-            time={dayTime}
+            time={inputTime}
             onChange={(e) => onChange(e, i)}
             key={weeks[i].en}
           />
         </React.Fragment>
       ))}
-    </>
+      <button type="submit">Submit form</button>
+    </form>
   );
 };
 
