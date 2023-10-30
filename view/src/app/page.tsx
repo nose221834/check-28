@@ -4,49 +4,6 @@ import React, { useState } from "react";
 import Forms from "../components/forms";
 
 export default function Home() {
-<<<<<<< HEAD
-
-
-  const [dayTimes,setDayTimes] = useState([
-  "00:00",
-  "00:00",
-  "00:00",
-  "00:00",
-  "00:00",
-  ])
-
-  const [sumTime,setSumTimes] = useState(0)
-
-
-  function handleTime(index: number,e: React.ChangeEvent<HTMLInputElement>) {
-    const nextDayInfo = dayTimes.map((daytime,i) => {
-      if (i === index) {
-        return e.target.value;
-      } else {
-        return daytime;
-      }
-    })
-    setDayTimes(nextDayInfo)
-  }
-
-  function handleSumTime() {
-
-  }
-
-  return (
-    <form action="" method="get" className="form-example" >
-        <h1>check-28</h1>
-        <h2>勤務時間を入力してください</h2>
-      {dayTimes.map((dayTime,i) =>
-      <>
-        <Form dayEn={weeks[i].en} dayJa={weeks[i].ja} dayTime={dayTime} onchange={(e) => handleTime(i,e)} key={i}/>
-        <div key={weeks[i].ja}>勤務時間：{dayTime}</div>
-      </>
-      )}
-      <button type="submit">Submit form</button>
-    </form>
-)}
-=======
   const [culcTime, setculcTime] = useState(["00:00","28:00"]);
   const [inputTimes, setInputTimes] = useState([
     "00:00",
@@ -114,4 +71,3 @@ export default function Home() {
     </>
   );
 }
->>>>>>> 8b682fc104de1999538e9b9a725e53f10cdf09e0
